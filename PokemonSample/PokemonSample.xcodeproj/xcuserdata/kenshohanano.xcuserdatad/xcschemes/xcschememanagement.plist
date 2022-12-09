@@ -4,15 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>PokemonSample (iOS).xcscheme_^#shared#^_</key>
+		<key>PokemonSample.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
-		</dict>
-		<key>PokemonSample (macOS).xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 </dict>
