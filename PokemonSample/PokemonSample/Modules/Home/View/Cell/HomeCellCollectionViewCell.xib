@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HomeCellCollectionViewCell" customModule="PokemonSample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="124" height="124"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="124" height="124"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="pokemonの名前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dw8-HC-fZB">
+                        <rect key="frame" x="0.0" y="73" width="123" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NO.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAb-yd-lwE">
+                        <rect key="frame" x="39" y="22" width="46" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="17K-Jf-PD1"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="DXg-8R-vBC"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Jxw-Ly-1xv"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Yb0-tQ-L30"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="ZQF-Lo-div"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="fdD-wa-ixV"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="iz1-wQ-xFS"/>
+                <constraint firstItem="dw8-HC-fZB" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="xYJ-6H-amp"/>
+            </constraints>
+            <size key="customSize" width="124" height="124"/>
+            <point key="canvasLocation" x="137.68115942028987" y="95.758928571428569"/>
+        </collectionViewCell>
+    </objects>
+</document>
