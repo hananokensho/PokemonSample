@@ -7,12 +7,22 @@
 
 import UIKit
 
-class ViewController: UIViewController,
-                      UICollectionViewDelegate,
-                      UICollectionViewDataSource,
-                      UICollectionViewDelegateFlowLayout{
+class ViewController: UIViewController {
     
-    @IBOutlet var collectionView: UICollectionView!
+    // Outlets
+    @IBOutlet weak var collectionView: UICollectionView! {
+        didSet {
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
+    }    
+    
+    private let sideMargin: CGFloat = 25
+    private let itemPerWidth: CGFloat = 3
+    private let itemSpacing: CGFloat = 10
+    
+    private var mPokemons = [Pokemon]()
+    private var currentPokemon: Pokemon!
     
     // レイアウト設定　UIEdgeInsets については下記の参考図を参照。
     private let sectionInsets = UIEdgeInsets(top: 10.0, left: 2.0, bottom: 2.0, right: 2.0)
@@ -22,40 +32,87 @@ class ViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initView()
+        featchPokemons()
+        
+    }
+    
+    private func initView() {
         // レイアウトを調整
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-//        collectionView.collectionViewLayout = layout
+        layout.sectionInset = UIEdgeInsets(
+            top: 12,
+            left: sideMargin,
+            bottom: 12,
+            right: sideMargin
+        )
     }
     
+    
+    private func featchPokemons() {
+        Task {
+            do {
+                let pokemons = try await PokemonApiClient.fetchPokemonList()
+                DispatchQueue.main.async {
+                    self.mPokemons = pokemons
+                    print("collectionView \(self.collectionView.hashValue)")
+                    if(self.collectionView != nil) {
+                        print("nilではない")
+                        self.collectionView.reloadData()
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    print("Error")
+                }
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPokemonDetail" {
+            let nextView = segue.destination as! PokemonDetailViewController
+            nextView.mPokemon = currentPokemon
+        }
+    }
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    // cellの数
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("collectionView")
-        return 151
-    }
-    // セルの行間の設定
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        print("pokemonの数 \(self.mPokemons.count)")
+        return self.mPokemons.count
     }
     
-    // セルが選択されたときの処理
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath.row + 1)がtapされたよ")
-    }
-    
+    // cellの初期化？
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("indexPath : indexPath\(indexPath)")
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) // 表示するセルを登録(先程命名した"Cell")
-        cell.backgroundColor = .red  // セルの色
-        let label = cell.contentView.viewWithTag(1) as! UILabel
-        label.text = String(indexPath.row + 1)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .red
+        cell.layer.cornerRadius = 85
+        let number = cell.contentView.viewWithTag(1) as! UILabel
+        let name = cell.contentView.viewWithTag(2) as! UILabel
+        let imageView = cell.contentView.viewWithTag(3) as! UIImageView
+        let url = URL(string: self.mPokemons[indexPath.row].sprites.frontImage)
+        ImageManager.setImage(target: imageView, url: url)
+        number.text = "No.\(self.mPokemons[indexPath.row].id)"
+        name.text = self.mPokemons[indexPath.row].name
         return cell
     }
     
+    // cellタップ時
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        currentPokemon = mPokemons[indexPath.row]
+        performSegue(withIdentifier: "toPokemonDetail", sender: nil)
+        print("\(indexPath.row + 1)がtapされたよ")
+    }
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let horizontalSpace : CGFloat = 20
-        let cellSize : CGFloat = self.view.bounds.width / 3 - horizontalSpace
+        let horizontalSpace : CGFloat = 30
+        let cellSize : CGFloat = self.view.bounds.width / itemsPerRow - horizontalSpace
         return CGSize(width: cellSize, height: cellSize)
     }
-
 }
 
